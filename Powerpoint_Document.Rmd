@@ -1,0 +1,79 @@
+---
+title: "Presentation_powerpoint"
+output:
+  slidy_presentation: default
+  powerpoint_presentation: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Getting a description of the data
+The data was obtained from the kaggle website
+
+the data was called car's dataset and it entailed the prices of second hand cars
+
+The variables included in the data set include but not limited to
+
+- Price
+- Mileage
+- type
+- Make
+
+## Getting the working directory and importing the data
+
+```{r}
+getwd()
+
+Cars<-read.csv("Cars dataset.csv", stringsAsFactors = T, sep = ",")
+
+View(Cars)
+
+## Getting a summary of the data
+
+summary(Cars)
+
+```
+
+## Creating Data Visualizations for the data
+
+Creating a scatter plot for the price and Mileage variable
+
+Loading the required libraries
+
+```{r}
+attach(Cars)
+
+library(tidyverse)
+
+scatter<-ggplot(data=Cars, mapping = aes(x= mileage,y=Price_Log10))+
+  geom_point()+geom_smooth(method = "lm",se=T)+ 
+  labs(x="Mileage of the Car", y= "Price of the car",
+       title = "Scatter plot for Price and Mileage")+
+  theme_classic()
+scatter
+
+```
+
+## Creating a box plot for Price and type of transmission of a car
+
+```{r}
+boxplot<-ggplot(data=Cars,mapping = aes(x=Transmission,y=Price,fill=Transmission))+
+  geom_boxplot()+labs(x=" Type of Transmission",y= "Price of a Car",
+                      title = " Box plot for Price and type of transmission")+
+  theme_classic()
+boxplot
+
+```
+
+
+## SAving the formatted data to an RData file
+
+```{r}
+save(Cars,file = "Cars data.RData")
+
+```
+
+
